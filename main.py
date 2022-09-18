@@ -6,7 +6,7 @@ from config import files, farms, min_date_start, max_date_start
 app = Flask(__name__)
 
 
-IS_LOAD = False
+IS_LOAD = True
 
 
 @app.route('/index')
@@ -60,4 +60,4 @@ if __name__ == '__main__':
     max_date = max_date_start
     farm_list = farms
     app_data = []
-    app.run('localhost', 5555, debug=True)
+    app.run('localhost', 5000, debug=True)

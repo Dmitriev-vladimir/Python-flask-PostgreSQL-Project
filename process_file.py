@@ -68,8 +68,7 @@ def download_report_to_xlsx(data: list[tuple], title: str, min_date: str, max_da
     :return:
     """
     file_title = '{}_{}_{}.xlsx'.format(title, min_date, max_date)
-    temp_dir = os.path.join(BASE_DIR, '/output_reports/')
-    file = os.path.join(temp_dir, file_title)
+    file = os.path.join(BASE_DIR, file_title)
     wb = Workbook()
     ws = wb.active
 
@@ -77,5 +76,5 @@ def download_report_to_xlsx(data: list[tuple], title: str, min_date: str, max_da
 
     for row in data:
         ws.append(row)
-    wb.save(file_title)
+    wb.save(file)
     print('Данные отчета успешно сохранены в файле {}'.format(file))
