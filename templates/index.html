@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../static/css/style.css">
+    <title>Dashboard TEST</title>
+</head>
+<body>
+    <header class="header">
+        <div class="container header__container">
+            <a href="http://www.rusmolco.com" class="logo">
+                <img src="../static/img/logo.jpg" alt="Logo Image of RusMolCo">
+            </a>
+        <h1 class="header__title">Тестовое задание</h1>
+            <div class="header__btn"><a href="/download_report" class="header__link">Выгрузить отчет</a></div>
+        </div>
+    </header>
+    <main class="main">
+        <div class="container main__container">
+            <div class="main__form-block">
+                <form action="/get_view" class="main__form" method="POST">
+                    <h3 class="form__title">Параметры отчета</h3>
+                    <select name="farm" id="farm" class="form__select param_text">
+                        {% if farm=="all" %}
+                            <option value="all" selected>Все хозяйства</option>
+                        {% else %}
+                            <option value="all">Все хозяйства</option>
+                        {% endif %}
+                        {% if farm=="first-farm" %}
+                            <option value="first-farm" selected>Первое хозяйство</option>
+                        {% else %}
+                            <option value="first-farm">Первое хозяйство</option>
+                        {% endif %}
+                        {% if farm=="second-farm" %}
+                            <option value="second-farm" selected>Второе хозяйство</option>
+                        {% else %}
+                            <option value="second-farm">Второе хозяйство</option>
+                        {% endif %}
+                        {% if farm=="third-farm" %}
+                            <option value="third-farm" selected>Третье хозяйство</option>
+                        {% else %}
+                            <option value="third-farm">Третье хозяйство</option>
+                        {% endif %}
+                    </select>
+
+                    <label for="min_date" class="form__label param_text">Начальная дата</label>
+                    <input type="date" name="min_date" id="min_date" value="{{min}}">
+
+                    <label for="max_date" class="form__label param_text">Конечная дата</label>
+                    <input type="date" name="max_date" id="max_date" value="{{max}}">
+
+                    <input type="submit" value="Сформировать отчет" class="form__btn param_text">
+                </form>
+             </div>
+
+            <table class="main__view">
+                <thead class="view__caption">
+                <th class="view__head">Дата</th>
+                <th class="view__head">Техника</th>
+                <th class="view__head">Номер техники</th>
+                <th class="view__head">Площадь, га</th>
+                <th class="view__head">Объем работ, м<sup>3</sup></th>
+                </thead>
+                <tbody>
+                    {% for item in data %}
+                    {% if loop.index % 3 == 0 and farm == 'all' %}
+                        {% set row_class = 'row_end'%}
+                    {% endif %}
+                    {% if loop.index % 3 == 1 and farm == 'all' %}
+                        {% set row_class = 'row_start'%}
+                    {% endif %}
+                    {% if farm != 'all' %}
+                        {% set row_class = 'row_one' %}
+                    {% endif %}
+
+                        <tr class="row">
+                            <td class="cell {{row_class}}">
+                                {% if farm == 'all' %}
+                                    {% if loop.index % 3 == 2 %}
+                                        {{ item[0]}}
+                                    {% endif %}
+                                {% else %}
+                                    {{ item[0]}}
+                                {% endif %}
+
+                            </td>
+                            <td class="cell {{row_class}}">{{ item[1]}}</td>
+                            <td class="cell {{row_class}}">{{ item[2]}}</td>
+                            <td class="cell {{row_class}}">{{ item[3]}}</td>
+                            <td class="cell {{row_class}}">{{ item[4]}}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+
+        </div>
+    </main>
+</body>
+</html>
