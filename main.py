@@ -5,8 +5,8 @@ from config import files, farms, min_date_start, max_date_start
 
 app = Flask(__name__)
 
-
 IS_LOAD = True
+"параметр, определяющий необходимость создания базы данных и таблиц в ней"
 
 
 @app.route('/index')
@@ -48,6 +48,9 @@ def download_report():
 
 
 def load_data():
+    """
+    Функция итерирования списка файлов для перевода данных из них в таблицы базы данных
+    """
     for file in files:
         process_file.create_table_from_csv(file)
 

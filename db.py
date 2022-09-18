@@ -9,7 +9,6 @@ from psycopg2.sql import Composed
 def create_database():
     """
     Функция создает базу данных test_db
-    :return:
     """
     with psycopg2.connect(host='127.0.0.1', user='postgres', password='0000') as connection:
         connection.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
@@ -25,6 +24,8 @@ def create_database():
 
 def create_sql_to_farm(farm_name: str) -> Composed:
     """
+    Функция создания SQL запроса для получения обобщенных данных по одному хозяйству
+
     :param farm_name: string, name of farm
     :return: Composed, request-string to database
     """
@@ -40,11 +41,12 @@ def create_sql_to_farm(farm_name: str) -> Composed:
 
 def create_sql_all_farms(farms: List[str], min_date: str, max_date: str):
     """
+    Функция получения обобщенных данных по одному или нескольким хозяйствам
 
-    :param farms:
-    :param min_date:
-    :param max_date:
-    :return:
+    :param farms: список хозяйств (или список из одного хозяйства)
+    :param min_date: параметр запроса - начальная дата запрошенного периода времени
+    :param max_date: параметр запроса - конечная дата запрошенного периода времени
+    :return: Any: данные, полученные из базы по одному или нескольким хозяйствам
     """
     with psycopg2.connect(host='127.0.0.1', user='postgres', password='0000', database="test_db") as connection:
         print('База данных подключена')

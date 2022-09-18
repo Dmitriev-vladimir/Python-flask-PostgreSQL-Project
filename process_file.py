@@ -61,11 +61,10 @@ def create_table_from_csv(file: path):
 def download_report_to_xlsx(data: list[tuple], title: str, min_date: str, max_date: str):
     """
     Функция выгружает текущий отчет в файл <название хозяйства (или all)><начало периода><конец периода>.xlsx
-    :param data:
-    :param title:
-    :param min_date:
-    :param max_date:
-    :return:
+    :param data: данные, отраженные в текущем отчете
+    :param title: название хозяйства, или обобщенное 'all'
+    :param min_date: начальная дата запрошенного периода времени
+    :param max_date: конечная дата запрошенного периода времени
     """
     file_title = '{}_{}_{}.xlsx'.format(title, min_date, max_date)
     file = os.path.join(BASE_DIR, file_title)
